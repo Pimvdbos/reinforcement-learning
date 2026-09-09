@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="500" viewBox="0 0 1200 500">
+<rect width="1200" height="500" rx="18" fill="#ffffff"/>
+<style>
+  .t{font-family:Arial,Helvetica,sans-serif;fill:#111827}
+  .m{font-family:Arial,Helvetica,sans-serif;fill:#4b5563}
+  .train{fill:#dbeafe;stroke:#93c5fd;stroke-width:1.5}
+  .test{fill:#dcfce7;stroke:#86efac;stroke-width:1.5}
+  .axis{stroke:#94a3b8;stroke-width:1.5}
+</style>
+<text x="600" y="38" class="t" font-size="24" text-anchor="middle" font-weight="700">Historical validation design</text>
+<text x="600" y="64" class="m" font-size="14" text-anchor="middle">Chronological splits only — future observations are never shuffled into training</text>
+<text x="70" y="118" class="t" font-size="17" font-weight="700">80/20 holdout</text>
+<rect x="250" y="92" width="650" height="54" rx="8" class="train"/>
+<rect x="900" y="92" width="220" height="54" rx="8" class="test"/>
+<text x="575" y="125" class="t" font-size="14" text-anchor="middle">Training (~80%)</text>
+<text x="1010" y="125" class="t" font-size="14" text-anchor="middle">Test (~20%)</text>
+<line x1="250" y1="168" x2="1120" y2="168" class="axis"/>
+<text x="250" y="192" class="m" font-size="13" text-anchor="middle">2010</text>
+<text x="1120" y="192" class="m" font-size="13" text-anchor="middle">2024</text>
+<text x="70" y="250" class="t" font-size="17" font-weight="700">5-fold walk-forward</text>
+<text x="70" y="276" class="m" font-size="13">Expanding training window</text>
+<g transform="translate(250,225)">
+  <rect x="0" y="0" width="260" height="34" rx="5" class="train"/><rect x="260" y="0" width="95" height="34" rx="5" class="test"/>
+  <text x="130" y="22" class="t" font-size="12" text-anchor="middle">train</text><text x="307" y="22" class="t" font-size="12" text-anchor="middle">test 1</text>
+  <rect x="0" y="50" width="355" height="34" rx="5" class="train"/><rect x="355" y="50" width="95" height="34" rx="5" class="test"/>
+  <text x="178" y="72" class="t" font-size="12" text-anchor="middle">train</text><text x="402" y="72" class="t" font-size="12" text-anchor="middle">test 2</text>
+  <rect x="0" y="100" width="450" height="34" rx="5" class="train"/><rect x="450" y="100" width="95" height="34" rx="5" class="test"/>
+  <text x="225" y="122" class="t" font-size="12" text-anchor="middle">train</text><text x="497" y="122" class="t" font-size="12" text-anchor="middle">test 3</text>
+  <rect x="0" y="150" width="545" height="34" rx="5" class="train"/><rect x="545" y="150" width="95" height="34" rx="5" class="test"/>
+  <text x="272" y="172" class="t" font-size="12" text-anchor="middle">train</text><text x="592" y="172" class="t" font-size="12" text-anchor="middle">test 4</text>
+  <rect x="0" y="200" width="640" height="34" rx="5" class="train"/><rect x="640" y="200" width="95" height="34" rx="5" class="test"/>
+  <text x="320" y="222" class="t" font-size="12" text-anchor="middle">train</text><text x="687" y="222" class="t" font-size="12" text-anchor="middle">test 5</text>
+</g>
+<rect x="880" y="265" width="240" height="100" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="1000" y="294" class="t" font-size="14" text-anchor="middle" font-weight="700">Each fold</text>
+<text x="1000" y="319" class="m" font-size="13" text-anchor="middle">fit scaler on train</text>
+<text x="1000" y="341" class="m" font-size="13" text-anchor="middle">retrain PPO from scratch</text>
+<text x="1000" y="363" class="m" font-size="13" text-anchor="middle">evaluate same horizon</text>
+<rect x="880" y="385" width="240" height="70" rx="12" fill="#fff7ed" stroke="#fdba74" stroke-width="1.5"/>
+<text x="1000" y="412" class="t" font-size="14" text-anchor="middle" font-weight="700">Benchmarks</text>
+<text x="1000" y="437" class="m" font-size="13" text-anchor="middle">Equal Weight · MVO · Random</text>
+</svg>
