@@ -24,7 +24,7 @@ The project asks whether a learned policy can adapt portfolio weights to changin
 
 ![PPO portfolio-allocation architecture](figures/rl_architecture.svg)
 
-At each decision date, information available at time $t$ is converted into a state vector. PPO maps that state to target portfolio weights, after which the return at $t+1$ is realized. The next observation therefore depends on the new portfolio state and updated market information.
+At each decision date, information available at time **t** is converted into a state vector. PPO maps that state to target portfolio weights, after which the return at **t+1** is realized. The next observation therefore depends on the new portfolio state and updated market information.
 
 **Core implementation:** [`PortfolioEnv`](src/rl_portfolio/environment.py) · [`PPO agent`](src/rl_portfolio/agent.py) · [`features`](src/rl_portfolio/features.py) · [`benchmarks`](src/rl_portfolio/benchmarks.py) · [`holdout experiment`](scripts/train_holdout.py) · [`walk-forward validation`](scripts/cross_validate.py) · [`research notebook`](notebooks/portfolio_rl_walkthrough.ipynb)
 
@@ -99,12 +99,9 @@ The market-level inputs are the S&P 500 daily log return and 20-day rolling vola
 
 PPO produces 14 continuous action components. The environment converts them to a long-only, fully invested portfolio:
 
-$$
-w_{t,i}
-=
-\frac{\max(a_{t,i},0)}
-{\sum_j \max(a_{t,j},0)}
-$$
+```text
+w[t,i] = max(a[t,i], 0) / Σ_j max(a[t,j], 0)
+```
 
 If every raw action component is zero, the environment falls back to equal weighting.
 
@@ -112,24 +109,19 @@ If every raw action component is zero, the environment falls back to equal weigh
 
 The historical experiment used:
 
-$$
-R_{t+1}
-=
-\log(1+r_{p,t+1})
--
-\lambda_r r_{p,t+1}^{2}
--
-c_{\mathrm{tr}}
-\left\lVert w_t-w_{t-1}\right\rVert_1
-$$
+```text
+R[t+1] = log(1 + r_p[t+1])
+         - λ_r × (r_p[t+1])²
+         - c_tr × ||w_t - w_(t-1)||₁
+```
 
 where:
 
-- $r_{p,t+1}$ is the realized next-period portfolio return,
-- $\lambda_r$ controls the quadratic return penalty,
-- $c_{\mathrm{tr}}$ penalizes portfolio turnover.
+- `r_p[t+1]` is the realized next-period portfolio return,
+- `λ_r` controls the quadratic return penalty,
+- `c_tr` penalizes portfolio turnover.
 
-The selected values were $\lambda_r = 0.1344558$ and $c_{\mathrm{tr}} = 0.001$.
+The selected values were `λ_r = 0.1344558` and `c_tr = 0.001`.
 
 The squared-return term is treated as a **one-period risk regularizer**, not as portfolio variance.
 
@@ -144,8 +136,8 @@ The policy is implemented with Stable-Baselines3 `PPO("MlpPolicy")`. The actor p
 | Learning rate | `8.2749e-05` |
 | Rollout steps | `512` |
 | Batch size | `32` |
-| Discount factor $\gamma$ | `0.98965` |
-| GAE $\lambda$ | `0.95018` |
+| Discount factor γ | `0.98965` |
+| GAE λ | `0.95018` |
 | Entropy coefficient | `0.11275` |
 | Risk-aversion coefficient | `0.13446` |
 | Training timesteps | `200,000` |
@@ -199,7 +191,7 @@ SHAP values are interpreted as explanations of the learned policy, **not** as ca
 The refactored codebase adds explicit safeguards around the parts of financial RL most prone to silent errors:
 
 - **Explicit asset ordering** from data download through returns, actions, stored weights, and SHAP targets.
-- **Strict $t \rightarrow t+1$ timing** so the next realized return cannot enter the current decision state.
+- **Strict t → t+1 timing** so the next realized return cannot enter the current decision state.
 - **Train-only preprocessing** in every holdout and walk-forward split.
 - **Matched evaluation horizons** across PPO and all benchmarks.
 - **Isolated experiment scripts** instead of notebook-global state.
