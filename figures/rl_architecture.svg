@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="440" viewBox="0 0 1200 440">
+<rect width="1200" height="440" rx="18" fill="#ffffff"/>
+<style>
+  .t{font-family:Arial,Helvetica,sans-serif;fill:#111827}
+  .muted{font-family:Arial,Helvetica,sans-serif;fill:#4b5563}
+  .box{fill:#f8fafc;stroke:#cbd5e1;stroke-width:2}
+  .accent{fill:#eff6ff;stroke:#93c5fd;stroke-width:2}
+  .green{fill:#f0fdf4;stroke:#86efac;stroke-width:2}
+  .orange{fill:#fff7ed;stroke:#fdba74;stroke-width:2}
+  .arrow{stroke:#64748b;stroke-width:2.5;fill:none;marker-end:url(#a)}
+</style>
+<defs>
+  <marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+    <path d="M0,0 L0,6 L9,3 z" fill="#64748b"/>
+  </marker>
+</defs>
+<text x="600" y="36" class="t" font-size="24" text-anchor="middle" font-weight="700">PPO portfolio-allocation loop</text>
+<text x="600" y="62" class="muted" font-size="14" text-anchor="middle">Information available at t determines weights; returns are realized at t+1</text>
+<rect x="45" y="115" width="190" height="120" rx="14" class="box"/>
+<text x="140" y="145" class="t" font-size="17" text-anchor="middle" font-weight="700">Market data</text>
+<text x="140" y="174" class="muted" font-size="14" text-anchor="middle">14 equities</text>
+<text x="140" y="196" class="muted" font-size="14" text-anchor="middle">S&amp;P 500</text>
+<text x="140" y="218" class="muted" font-size="14" text-anchor="middle">2010–2024</text>
+<rect x="285" y="100" width="200" height="150" rx="14" class="accent"/>
+<text x="385" y="132" class="t" font-size="17" text-anchor="middle" font-weight="700">State sₜ</text>
+<text x="385" y="160" class="muted" font-size="14" text-anchor="middle">98 asset features</text>
+<text x="385" y="182" class="muted" font-size="14" text-anchor="middle">2 market features</text>
+<text x="385" y="204" class="muted" font-size="14" text-anchor="middle">drawdown + prior weights</text>
+<text x="385" y="229" class="t" font-size="14" text-anchor="middle" font-weight="700">116 dimensions</text>
+<rect x="535" y="100" width="175" height="150" rx="14" class="orange"/>
+<text x="622.5" y="134" class="t" font-size="18" text-anchor="middle" font-weight="700">PPO</text>
+<text x="622.5" y="163" class="muted" font-size="14" text-anchor="middle">actor-critic policy</text>
+<text x="622.5" y="185" class="muted" font-size="14" text-anchor="middle">Stable-Baselines3</text>
+<text x="622.5" y="210" class="muted" font-size="14" text-anchor="middle">continuous control</text>
+<rect x="760" y="100" width="180" height="150" rx="14" class="green"/>
+<text x="850" y="134" class="t" font-size="17" text-anchor="middle" font-weight="700">Action wₜ</text>
+<text x="850" y="162" class="muted" font-size="14" text-anchor="middle">14 target weights</text>
+<text x="850" y="184" class="muted" font-size="14" text-anchor="middle">long-only</text>
+<text x="850" y="206" class="muted" font-size="14" text-anchor="middle">fully invested</text>
+<rect x="990" y="100" width="165" height="150" rx="14" class="box"/>
+<text x="1072.5" y="134" class="t" font-size="17" text-anchor="middle" font-weight="700">Portfolio step</text>
+<text x="1072.5" y="162" class="muted" font-size="14" text-anchor="middle">realize rₜ₊₁</text>
+<text x="1072.5" y="184" class="muted" font-size="14" text-anchor="middle">update wealth</text>
+<text x="1072.5" y="206" class="muted" font-size="14" text-anchor="middle">update drawdown</text>
+<path d="M235 175 L285 175" class="arrow"/>
+<path d="M485 175 L535 175" class="arrow"/>
+<path d="M710 175 L760 175" class="arrow"/>
+<path d="M940 175 L990 175" class="arrow"/>
+<rect x="360" y="315" width="480" height="80" rx="14" class="accent"/>
+<text x="600" y="342" class="t" font-size="16" text-anchor="middle" font-weight="700">Reward Rₜ₊₁</text>
+<text x="600" y="368" class="muted" font-size="14" text-anchor="middle">log-growth − quadratic return penalty − turnover penalty</text>
+<path d="M1072 250 C1072 300 920 355 840 355" class="arrow"/>
+<path d="M360 355 C280 355 250 280 385 250" class="arrow"/>
+</svg>
